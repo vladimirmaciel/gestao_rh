@@ -1,7 +1,11 @@
 from django.db import models
 
+from apps.funcionarios.models import Funcionario
+
+
 class Documentos(models.Model):
     descricao = models.CharField(max_length=100, help_text='Descrição do documento')
+    pertence = models.ForeignKey(Funcionario, on_delete=models.SET_NULL, null=True, blank=True)
 
 
     def __str__(self):
