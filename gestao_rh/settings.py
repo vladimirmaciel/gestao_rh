@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'apps.funcionarios.apps.EmpregadosConfig',
     'apps.departamentos.apps.DepartamentosConfig',
     'apps.documentos.apps.DocumentosConfig',
-    'apps.registro_hora_extra.apps.RegistroHoraExtraConfig'
+    'apps.registro_hora_extra.apps.RegistroHoraExtraConfig',
+    'apps.core.apps.CoreConfig'
 ]
 
 MIDDLEWARE = [
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'gestao_rh.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -108,9 +109,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'PT-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Maceio'
 
 USE_I18N = True
 
