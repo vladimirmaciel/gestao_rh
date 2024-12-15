@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),# Create your views here.
 
     path('funcionarios/', include('apps.funcionarios.urls')),
+    path('empresas/', include('apps.empresas.urls')),
     path("accounts/", include("django.contrib.auth.urls")),
 ]

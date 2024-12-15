@@ -3,7 +3,7 @@
 {% block main %}
     <div class="row">
         <div class="col">
-            Column
+            Olá: {{ usuario.funcionario_user.nome }}
         </div>
         <div class="col">
             Column
@@ -15,5 +15,14 @@
                 <button type="submit" class="btn btn-primary">Logout</button>
             </form>
         </div>
+        {% if usuario.funcionario_user.empresa %}
+            <div class="col">
+                <a href="" class="btn btn-primary">Editar Empresa</a>
+            </div>
+        {% else %}
+            <div class="col">
+                <a href="{% url 'funcionarios:create' %}" class="btn btn-primary">Criar Empresa</a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
