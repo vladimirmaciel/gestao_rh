@@ -15,14 +15,30 @@
                 <button type="submit" class="btn btn-primary">Logout</button>
             </form>
         </div>
+
+        <!-- Condição para exibir ações relacionadas à empresa -->
         {% if usuario.funcionario_user.empresa %}
             <div class="col">
-                <a href="" class="btn btn-primary">Editar Empresa</a>
+                <!-- Botão para editar a empresa -->
+                <a href="{% url 'empresas:update' usuario.funcionario_user.empresa.id %}" class="btn btn-primary">Editar Empresa</a>
             </div>
         {% else %}
             <div class="col">
-                <a href="{% url 'funcionarios:create' %}" class="btn btn-primary">Criar Empresa</a>
+                <!-- Botão para criar uma nova empresa -->
+                <a href="{% url 'empresas:create' %}" class="btn btn-primary">Criar Empresa</a>
             </div>
         {% endif %}
     </div>
+
+    <!-- Exibe mensagens (se houver) -->
+    {% if messages %}
+        <div class="col-12 mt-3">
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
