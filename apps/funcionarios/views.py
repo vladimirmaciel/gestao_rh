@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.urls import reverse_lazy
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView
 
 from apps.funcionarios.models import Funcionario
@@ -18,3 +19,10 @@ class FuncionarioCreate(LoginRequiredMixin,CreateView):
 
     def get_success_url(self):
         return super().get_success_url()
+
+class ListFuncionariosView(LoginRequiredMixin,ListView):
+    model = Funcionario
+
+    def get_queryset(self):
+        empresa_logada = self.request.user.funcionario_user.empresa
+        return Funcionario.objects.filter(empresa=empresa_logada)
