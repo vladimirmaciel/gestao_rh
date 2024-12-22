@@ -16,3 +16,6 @@ class Funcionario(models.Model):
 
     def __str__(self):
         return f'{self.nome}'
+
+    def listar_departamentos(self):
+        return ' -- '.join([d.nome for d in self.departamentos.all()])
