@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 
 {% block main %}
-  <h2>Departamentos</h2>
+    <h2>Departamentos</h2>
 
-  {% if departamentos %}
-    <ul>
-      {% for departamento in object_list %}
-        <li>{{ departamento.nome }}</li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>Não há departamentos ativos para sua empresa.</p>
-  {% endif %}
+    {% if departamentos %}
+        <ul>
+            {% for departamento in object_list %}
+                <li>{{ departamento.nome }} - <a href="{% url 'departamentos:update' departamento.id %}">Editar</a> - <a
+                        href="{% url 'departamentos:delete' departamento.id %}">Excluir</a></li>
+
+
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Não há departamentos ativos para sua empresa.</p>
+    {% endif %}
 {% endblock %}
