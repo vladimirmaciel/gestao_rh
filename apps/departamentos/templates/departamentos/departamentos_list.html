@@ -1,12 +1,15 @@
-{%  extends 'base.html' %}
+{% extends 'base.html' %}
+
 {% block main %}
-    {% for departamento in object_list %}
-        <div class="card mt-3">
-            <div class="card-body">
-                <h5 class="card-title">
-                    <p class="card-text">{{ departamento.nome }}</p>
-                </h5>
-            </div>
-        </div>
-    {% endfor %}
+  <h2>Departamentos</h2>
+
+  {% if departamentos %}
+    <ul>
+      {% for departamento in object_list %}
+        <li>{{ departamento.nome }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Não há departamentos ativos para sua empresa.</p>
+  {% endif %}
 {% endblock %}

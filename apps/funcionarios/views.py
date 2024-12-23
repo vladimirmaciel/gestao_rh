@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
+from apps.departamentos.models import Departamento
 from apps.funcionarios.models import Funcionario
 
 
@@ -19,6 +20,13 @@ class FuncionarioCreate(LoginRequiredMixin, CreateView):
     template_name = 'funcionarios/funcionario_form.html'
     success_url = reverse_lazy('funcionarios:list')
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # Filtrar departamentos pela empresa do usuário logado
+        empresa = self.request.user.funcionario_user.empresa
+        form.fields['departamentos'].queryset = Departamento.objects.filter(empresa=empresa, is_active=True)
+        return form
+
     def form_valid(self, form):
         funcionario = form.save(commit=False)
         funcionario.empresa = self.request.user.funcionario_user.empresa
@@ -26,11 +34,10 @@ class FuncionarioCreate(LoginRequiredMixin, CreateView):
         funcionario.save()
         return super().form_valid(form)
 
-
     def create_user_for_funcionario(self, funcionario):
-      nome_parts = funcionario.nome.split()
-      username = ''.join(nome_parts[:2])
-      return User.objects.create_user(username=username)
+        nome_parts = funcionario.nome.split()
+        username = ''.join(nome_parts[:2])
+        return User.objects.create_user(username=username)
 
 
 class ListFuncionariosView(LoginRequiredMixin, ListView):
@@ -48,12 +55,18 @@ class FuncionarioUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('funcionarios:list')
     template_name_suffix = "_update_form"
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # Filtrar departamentos pela empresa do usuário logado
+        empresa = self.request.user.funcionario_user.empresa
+        form.fields['departamentos'].queryset = Departamento.objects.filter(empresa=empresa, is_active=True)
+        return form
+
 
 class FuncionarioDeleteView(LoginRequiredMixin, DeleteView):
     model = Funcionario
     success_url = reverse_lazy('funcionarios:list')
     template_name = "funcionarios/funcionario_confirm_delete.html"
-
 
     def form_valid(self, form):
         if self.verificar_se_pode_deletar():

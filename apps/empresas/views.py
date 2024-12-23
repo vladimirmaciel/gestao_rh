@@ -26,9 +26,9 @@ class EmpresaCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         obj_empresa = form.save()
-        funcionario = self.request.user.funcionario_user
-        funcionario.empresa = obj_empresa
-        funcionario.save()
+        # funcionario = self.request.user.funcionario_user
+        # funcionario.empresa = obj_empresa
+        # funcionario.save()
         return HttpResponse('Empresa criada com sucesso!')  # Exemplo de retorno
 
 
